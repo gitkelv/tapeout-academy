@@ -7,6 +7,8 @@
 <p align="center"><b>Tape out your first chip.</b><br>
 A concept chip-design school for the TapeOut ecosystem.</p>
 
+<p align="center"><a href="https://tapeout-academy.vercel.app"><b>▶ Try the live prototype</b></a></p>
+
 <p align="center">
   <img src="docs/screenshots/hero.png" alt="TapeOut Academy landing page with interactive dot field" width="100%">
 </p>
@@ -68,7 +70,7 @@ Each lesson has a hint and a "Show solution" button. Lessons unlock in order, be
 
 ## Run it
 
-Static site, no build step and no dependencies. Open `index.html` in a browser, or import the repo into Vercel and deploy as-is.
+Live at **https://tapeout-academy.vercel.app**. Static site, no build step and no dependencies: open `index.html` in a browser, or import the repo into Vercel and deploy as-is.
 
 | File | What's in it |
 |---|---|
