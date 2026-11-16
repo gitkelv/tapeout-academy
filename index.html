@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TapeOut Academy · Tape out your first chip</title>
+<meta name="description" content="A concept chip-design school: build logic from NAND gates, tape it out, and mint your circuit. A prototype for the TapeOut ecosystem.">
+<meta name="theme-color" content="#06070c">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="dots" aria-hidden="true"></canvas>
+<div class="aurora" aria-hidden="true"></div>
+
+<header class="topbar">
+  <a class="brand" href="#top">
+    <img src="logo.svg" alt="" width="34" height="34">
+    <span>TapeOut <em>Academy</em></span>
+  </a>
+  <span class="badge">Concept prototype</span>
+  <div class="wallet" title="Simulated transistor tokens">
+    <span class="wallet-dot"></span>
+    <span id="walletBal">0</span><small>TRN</small>
+    <button id="grantBtn" class="ghost sm" aria-label="Claim grant">+<span class="gl"> Grant</span></button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <p class="eyebrow"><span class="pulse"></span> Chip design, onchain, for everyone</p>
+    <h1>Tape out your<br><span class="grad">first chip.</span></h1>
+    <p class="lede">A real tape-out costs thousands of dollars. Here, transistors are tokens. Wire NAND gates into logic, prove it works, and mint your circuit as an NFT, then reuse it to build your way up to a CPU.</p>
+    <div class="hero-cta">
+      <a href="#lab" class="btn primary">Start lesson 1</a>
+      <a href="#how" class="btn ghost">How it maps to TapeOut</a>
+    </div>
+    <div class="path" id="path"></div>
+  </section>
+
+  <section class="lab" id="lab">
+    <aside class="lessons glass" id="lessonList"></aside>
+
+    <div class="stage glass">
+      <div class="stage-head">
+        <div>
+          <p class="kicker" id="lessonKicker">Lesson 1</p>
+          <h2 id="lessonTitle">NOT</h2>
+          <p class="goal" id="lessonGoal"></p>
+        </div>
+        <div class="stage-actions">
+          <button class="ghost sm" id="hintBtn">Hint</button>
+          <button class="ghost sm" id="solveBtn">Show solution</button>
+          <button class="ghost sm" id="clearBtn">Clear</button>
+        </div>
+      </div>
+      <p class="hint" id="hintText" hidden></p>
+
+      <div class="palette" id="palette"></div>
+
+      <div class="board-wrap">
+        <svg id="board" viewBox="0 0 640 400" role="application" aria-label="Circuit board"></svg>
+        <div class="board-tip" id="boardTip">Tap an <b>output pin</b>, then an <b>input pin</b> to wire. Tap inputs to toggle. Drag to move.</div>
+        <button class="del-btn" id="delBtn" hidden>Delete part</button>
+      </div>
+      <p class="status" id="status"></p>
+    </div>
+
+    <aside class="side">
+      <div class="glass panel">
+        <div class="panel-head">
+          <h3>Truth table</h3>
+          <span class="chip-pill" id="passPill">0 / 0</span>
+        </div>
+        <table class="tt" id="truthTable"></table>
+      </div>
+
+      <div class="glass panel tape">
+        <div class="tape-row"><span>NAND gates</span><b id="statNand">0</b></div>
+        <div class="tape-row"><span>Transistors to burn</span><b id="statTr">0</b></div>
+        <div class="tape-row"><span>Wallet after</span><b id="statAfter">0</b></div>
+        <button class="btn primary block" id="tapeBtn" disabled>Tape out</button>
+        <p class="fine" id="tapeNote">Pass every row to unlock tape-out.</p>
+      </div>
+    </aside>
+  </section>
+
+  <section class="gallery-sec">
+    <div class="sec-head">
+      <h2>Your circuits</h2>
+      <p>Every tape-out mints a circuit NFT. Taped-out circuits become chips you can reuse in later lessons.</p>
+    </div>
+    <div class="gallery" id="gallery"></div>
+  </section>
+
+  <section class="clock-sec glass" id="clock">
+    <div class="clock-copy">
+      <p class="kicker">Final boss</p>
+      <h2>Your adder, on the block clock</h2>
+      <p>Four of your full adders chained into a 4-bit counter. Each new block is one clock tick, running at <b>2.22 Hz</b>, the same idea as TapeOut's onchain processor.</p>
+      <p class="fine" id="clockLock">Tape out the full adder to power this on.</p>
+    </div>
+    <div class="clock-vis">
+      <div class="bits" id="bits"></div>
+      <div class="clock-meta"><span>Block <b id="blockNo">0</b></span><span>Value <b id="clockVal">0</b></span></div>
+    </div>
+  </section>
+
+  <section class="how" id="how">
+    <div class="sec-head">
+      <h2>How this maps to TapeOut</h2>
+      <p>Everything here is simulated in the browser. Each piece lines up with how TapeOut is publicly described, so the team could wire it to real contracts.</p>
+    </div>
+    <div class="map-grid">
+      <div class="glass map"><span class="n">01</span><h4>Transistor tokens</h4><p>Your <b>TRN</b> balance stands in for TapeOut's transistor tokens (ERC-1155). Every NAND gate costs 4.</p></div>
+      <div class="glass map"><span class="n">02</span><h4>Tape-out burns, then mints</h4><p>Taping out uses up the transistors and mints the circuit as an NFT (ERC-721) that records how its gates connect.</p></div>
+      <div class="glass map"><span class="n">03</span><h4>Composable chips</h4><p>Taped-out circuits become building blocks. NOT → AND → XOR → adders, the same path that leads to a CPU.</p></div>
+      <div class="glass map"><span class="n">04</span><h4>Block-clocked compute</h4><p>The final lesson ticks with each block, echoing TapeOut's 4004-style processor clocked by block production.</p></div>
+    </div>
+    <div class="glass next">
+      <h4>What the TapeOut team could build next</h4>
+      <ul>
+        <li>Swap the simulated wallet for a real X Layer / BNB Chain wallet and call the actual tape-out contract.</li>
+        <li>Turn finished lessons into onchain credentials: proof that someone designed a working adder.</li>
+        <li>Pay royalties to designers when their circuits get reused in someone else's tape-out.</li>
+        <li>Add sequential lessons (latches, registers) and climb all the way to the CPU.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <img src="logo.svg" alt="" width="22" height="22">
+    <span>TapeOut Academy is a community concept prototype. Not affiliated with TapeOut. No real tokens or chains are used.</span>
+  </footer>
+</main>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal-card glass">
+    <div class="burn" id="burnStage">
+      <p class="kicker">Taping out</p>
+      <div class="burn-num"><span id="burnNum">0</span><small>TRN burned</small></div>
+      <div class="burn-bar"><i id="burnBar"></i></div>
+      <p class="fine" id="burnStep">Consuming transistor tokens…</p>
+    </div>
+    <div class="minted" id="mintStage" hidden>
+      <p class="kicker">Minted</p>
+      <div id="mintCard"></div>
+      <button class="btn primary block" id="modalClose">Continue</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>
