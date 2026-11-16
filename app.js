@@ -353,7 +353,7 @@ function nftCard(chip){
       <dt>Pins</dt><dd>${chip.inputs.length} in · ${chip.outputs.length} out</dd>
       <dt>Reused in</dt><dd>${chip.uses || 0} design${chip.uses === 1 ? '' : 's'}</dd>
     </dl>
-    <div class="hash">truth table · ${chip.hash.slice(0, 18)}…<br>mint tx · ${chip.tx.slice(0, 18)}… (simulated)</div>
+    <div class="hash">truth table · ${chip.hash.slice(0, 16)}…<br>mint tx · ${chip.tx.slice(0, 16)}…<br>simulated · not onchain</div>
   </div></div>`;
 }
 function renderGallery(){
